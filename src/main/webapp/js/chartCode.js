@@ -1,4 +1,3 @@
-
 /* global google */
 
 // Load the Visualization API and the corechart package.
@@ -12,15 +11,22 @@ function handleQueryResponse(response) {
     chart.draw(data, { legend: { position: 'none'} });    
 }
 
-function drawChart() {
-    console.log('charts loaded');
-    var opt = { sendMethod: 'xhr' }; //{ csvColumns: ['string', 'number'], csvHasHeader: true, sendMethod: auto });
-        //var query = new google.visualization.Query('http://local:6572/data.csv', opt);
-    var query = new google.visualization.Query('http://localhost:8080/Chart1/chartData.csv');
-    query.setQuery('select *');
-    query.send(handleQueryResponse);
-};
+function csvLoadDataResponse(event) {
+  console.log('fetched csv data');
+  var responseText = event.currentTarget.responseText;
+  console.log(responseText);
+  // parse the CSV data into something the chart can use
+  
+}
 
+function drawChart() {
+  // after the charts module is loaded fetch the CSV data
+  console.log('charts module loaded');
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", csvLoadDataResponse);
+  oReq.open("GET", "chartData.csv");
+  oReq.send();
+}
 
 
 //// Callback that creates and populates a data table,
