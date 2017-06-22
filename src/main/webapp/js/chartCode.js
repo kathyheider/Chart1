@@ -4,13 +4,6 @@
 google.load("visualization", "1", {packages: ["corechart"]});
 google.setOnLoadCallback(drawChart);
 
-function handleQueryResponse(response) {
-  console.log('loaded data ' + JSON.stringify(response));
-  var data = response.getDataTable();
-  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-  chart.draw(data, {legend: {position: 'none'}});
-}
-
 function populateChart(chartData) {
   // take the data from the CSV parser and put it into the chart DataTable.
   var data = new google.visualization.DataTable();
